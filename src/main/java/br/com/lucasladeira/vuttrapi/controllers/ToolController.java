@@ -25,6 +25,6 @@ public class ToolController {
 
     @PostMapping
     public ResponseEntity<ToolDto> createTool(@RequestBody NewToolDto tool){
-        return ResponseEntity.status(HttpStatus.OK).body(mapper.map(toolService.createTool(tool), ToolDto.class));
+        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.map(toolService.createTool(tool), ToolDto.class));
     }
 }
