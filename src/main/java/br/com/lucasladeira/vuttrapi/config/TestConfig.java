@@ -27,11 +27,11 @@ public class TestConfig implements CommandLineRunner {
         t1.getTags().addAll(List.of("programming", "ide"));
 
         Tool t2 = new Tool();
-        t1.setId(null);
-        t1.setTitle("Postman");
-        t1.setLink("postman.com");
-        t1.setDescription("Postman is an API platform for building and using APIs");
-        t1.getTags().addAll(List.of("programming", "api", "test"));
+        t2.setId(null);
+        t2.setTitle("Postman");
+        t2.setLink("postman.com");
+        t2.setDescription("Postman is an API platform for building and using APIs");
+        t2.getTags().addAll(List.of("programming", "api", "test"));
 
         toolRepository.saveAll(List.of(t1, t2));
     }
