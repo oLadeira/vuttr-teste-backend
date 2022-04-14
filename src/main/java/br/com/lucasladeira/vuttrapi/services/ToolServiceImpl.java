@@ -20,12 +20,12 @@ public class ToolServiceImpl implements ToolService{
     private ModelMapper mapper;
 
     @Override
-    public List<ToolDto> getAllTools() {
-        return null;
+    public List<Tool> getAllTools() {
+        return toolRepository.findAll();
     }
 
     @Override
-    public List<ToolDto> getAllToolsByTag(String tag) {
+    public List<Tool> getAllToolsByTag(String tag) {
         return null;
     }
 

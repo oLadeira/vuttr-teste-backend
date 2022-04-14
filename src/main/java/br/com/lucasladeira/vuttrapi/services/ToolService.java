@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface ToolService {
 
-    List<ToolDto> getAllTools();
+    List<Tool> getAllTools();
 
-    List<ToolDto> getAllToolsByTag(String tag);
+    List<Tool> getAllToolsByTag(String tag);
 
     Tool createTool(NewToolDto tool);
 
