@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,7 +28,7 @@ public class Tool {
     @CollectionTable(name = "tool_tag", //nome da tabela
             joinColumns = @JoinColumn(name = "tool_id")) //acrescenta uma coluna que referencia o id de Tool
     @Column(name = "tag") //nome do atributo
-    private List<String> tags;
+    private List<String> tags = new ArrayList<>();
 
 
 }
