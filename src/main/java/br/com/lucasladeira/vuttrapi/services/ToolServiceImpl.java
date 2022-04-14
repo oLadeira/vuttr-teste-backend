@@ -4,6 +4,7 @@ import br.com.lucasladeira.vuttrapi.dto.NewToolDto;
 import br.com.lucasladeira.vuttrapi.dto.ToolDto;
 import br.com.lucasladeira.vuttrapi.entities.Tool;
 import br.com.lucasladeira.vuttrapi.repositories.ToolRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,9 @@ public class ToolServiceImpl implements ToolService{
 
     @Autowired
     private ToolRepository toolRepository;
+
+    @Autowired
+    private ModelMapper mapper;
 
     @Override
     public List<ToolDto> getAllTools() {
@@ -27,30 +31,12 @@ public class ToolServiceImpl implements ToolService{
 
     @Override
     public Tool createTool(NewToolDto tool) {
-        return toolRepository.save(fromDTO(tool));
+        return toolRepository.save(mapper.map(tool, Tool.class));
     }
 
     @Override
     public void deleteTool(Long id) {
 
-    }
-
-
-    Tool fromDTO(NewToolDto toolDto){
-        Tool tool = new Tool();
-        tool.setId(null);
-        tool.setDescription(toolDto.getDescription());
-        tool.setTitle(toolDto.getTitle());
-        tool.setLink(toolDto.getLink());
-
-        toolDto.getTags().forEach(tag -> {
-            tool.getTags().add(tag);
-        });
-
-/*        for (String tag : toolDto.getTags()){
-            tool.getTags().add(tag);
-        }*/
-        return tool;
     }
 
 
