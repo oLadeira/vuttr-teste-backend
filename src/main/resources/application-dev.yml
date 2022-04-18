@@ -9,6 +9,9 @@ spring:
       console:
         enabled: true
         path: /h2-console
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
   jpa:
     show-sql: true
     hibernate:
