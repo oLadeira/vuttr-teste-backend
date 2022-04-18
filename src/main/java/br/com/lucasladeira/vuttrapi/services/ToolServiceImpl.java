@@ -1,9 +1,9 @@
 package br.com.lucasladeira.vuttrapi.services;
 
 import br.com.lucasladeira.vuttrapi.dto.NewToolDto;
-import br.com.lucasladeira.vuttrapi.dto.ToolDto;
 import br.com.lucasladeira.vuttrapi.entities.Tool;
 import br.com.lucasladeira.vuttrapi.repositories.ToolRepository;
+import br.com.lucasladeira.vuttrapi.services.exceptions.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +26,11 @@ public class ToolServiceImpl implements ToolService{
 
     @Override
     public List<Tool> getAllToolsByTag(String tag) {
+        List<Tool> tools = toolRepository.findByTags(tag);
+
+        if (tools.isEmpty()){
+            throw new ObjectNotFoundException("Tag not found!");
+        }
         return toolRepository.findByTags(tag);
     }
 
@@ -36,7 +41,9 @@ public class ToolServiceImpl implements ToolService{
 
     @Override
     public void deleteTool(Long id) {
-        toolRepository.deleteById(id);
+        Tool tool = toolRepository.findById(id)
+                        .orElseThrow(() -> new ObjectNotFoundException("Tool not found!"));
+        toolRepository.delete(tool);
     }
 
 
