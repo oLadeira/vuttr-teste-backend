@@ -36,7 +36,7 @@ public class ToolServiceImpl implements ToolService{
 
     @Override
     public void deleteTool(Long id) {
-
+        toolRepository.deleteById(id);
     }
 
 
