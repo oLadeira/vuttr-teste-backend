@@ -38,4 +38,14 @@ public class ToolController {
 
         return ResponseEntity.status(HttpStatus.OK).body(tools);
     }
+
+    @GetMapping("/find")
+    public ResponseEntity<List<ToolDto>> getToolsByTag(@RequestParam String tag){
+
+        List<ToolDto> tools = toolService.getAllToolsByTag(tag)
+                .stream().map(
+                        tool -> mapper.map(tool, ToolDto.class)).collect(Collectors.toList());
+
+        return ResponseEntity.status(HttpStatus.OK).body(tools);
+    }
 }

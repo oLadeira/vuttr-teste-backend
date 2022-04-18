@@ -26,7 +26,7 @@ public class ToolServiceImpl implements ToolService{
 
     @Override
     public List<Tool> getAllToolsByTag(String tag) {
-        return null;
+        return toolRepository.findByTags(tag);
     }
 
     @Override

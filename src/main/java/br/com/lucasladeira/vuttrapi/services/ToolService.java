@@ -1,7 +1,6 @@
 package br.com.lucasladeira.vuttrapi.services;
 
 import br.com.lucasladeira.vuttrapi.dto.NewToolDto;
-import br.com.lucasladeira.vuttrapi.dto.ToolDto;
 import br.com.lucasladeira.vuttrapi.entities.Tool;
 
 import java.util.List;
