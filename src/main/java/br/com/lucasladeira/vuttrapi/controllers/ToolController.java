@@ -62,6 +62,6 @@ public class ToolController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTool(@PathVariable Long id){
         toolService.deleteTool(id);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
