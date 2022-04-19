@@ -56,7 +56,20 @@ class ToolControllerTest {
     }
 
     @Test
-    void createTool() {
+    void whenCreateThenReturnCreatedStatusAndToolDto() {
+
+        Mockito.when(toolService.createTool(Mockito.any())).thenReturn(tool);
+        Mockito.when(mapper.map(Mockito.any(), Mockito.any())).thenReturn(toolDto);
+
+        ResponseEntity<ToolDto> response = toolController.createTool(newToolDto);
+
+        Assertions.assertEquals(ToolDto.class, response.getBody().getClass());
+        Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
+
+        Assertions.assertEquals(TITLE, response.getBody().getTitle());
+        Assertions.assertEquals(LINK, response.getBody().getLink());
+        Assertions.assertEquals(DESCRIPTION, response.getBody().getDescription());
+        Assertions.assertEquals(TAGS, response.getBody().getTags());
     }
 
     @Test
