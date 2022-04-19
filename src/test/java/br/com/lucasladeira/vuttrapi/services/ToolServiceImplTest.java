@@ -97,7 +97,20 @@ class ToolServiceImplTest {
     }
 
     @Test
-    void createTool() {
+    void whenCreateThenReturnSuccess() {
+
+        Mockito.when(toolRepository.save(Mockito.any())).thenReturn(tool);
+
+        Tool response = toolService.createTool(newToolDto);
+
+        Assertions.assertNotNull(response);
+        Assertions.assertEquals(response.getClass(), Tool.class);
+
+        Assertions.assertEquals(ID, response.getId());
+        Assertions.assertEquals(TITLE, response.getTitle());
+        Assertions.assertEquals(DESCRIPTION, response.getDescription());
+        Assertions.assertEquals(LINK, response.getLink());
+        Assertions.assertEquals(TAGS, response.getTags());
     }
 
     @Test
