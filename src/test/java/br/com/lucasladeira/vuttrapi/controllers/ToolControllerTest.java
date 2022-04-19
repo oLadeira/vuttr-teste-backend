@@ -60,7 +60,7 @@ class ToolControllerTest {
     }
 
     @Test
-    void whenGetAllToolsThenReturnSuccess() {
+    void whenGetAllToolsThenReturnAListOfToolDto() {
 
         Mockito.when(toolService.getAllTools()).thenReturn(List.of(tool));
         Mockito.when(mapper.map(Mockito.any(), Mockito.any())).thenReturn(toolDto);
@@ -84,7 +84,16 @@ class ToolControllerTest {
     }
 
     @Test
-    void getToolsByTag() {
+    void whenGetAllToolsByTagThenReturnAListOfToolDtoWithRespectiveTag() {
+
+        Mockito.when(toolService.getAllToolsByTag(Mockito.anyString())).thenReturn(List.of(tool));
+        Mockito.when(mapper.map(Mockito.any(), Mockito.any())).thenReturn(toolDto);
+
+        ResponseEntity<List<ToolDto>> response = toolController.getToolsByTag(TAG);
+
+        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+        Assertions.assertTrue(response.getBody().get(0).getTags().contains(TAG));
+        Assertions.assertEquals(ToolDto.class, response.getBody().get(0).getClass());
     }
 
     @Test
