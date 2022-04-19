@@ -4,6 +4,7 @@ import br.com.lucasladeira.vuttrapi.dto.NewToolDto;
 import br.com.lucasladeira.vuttrapi.dto.ToolDto;
 import br.com.lucasladeira.vuttrapi.entities.Tool;
 import br.com.lucasladeira.vuttrapi.services.ToolServiceImpl;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -13,6 +14,8 @@ import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
 import java.util.List;
@@ -57,7 +60,27 @@ class ToolControllerTest {
     }
 
     @Test
-    void getAllTools() {
+    void whenGetAllToolsThenReturnSuccess() {
+
+        Mockito.when(toolService.getAllTools()).thenReturn(List.of(tool));
+        Mockito.when(mapper.map(Mockito.any(), Mockito.any())).thenReturn(toolDto);
+
+        ResponseEntity<List<ToolDto>> response = toolController.getAllTools();
+
+        //verificando se o response nao e nulo
+        Assertions.assertNotNull(response);
+
+        //verificando se o corpo da resposta nao e nulo
+        Assertions.assertNotNull(response.getBody());
+
+        //verificando se o status code é == 200
+        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        //verificando o tipo do response
+        Assertions.assertEquals(ResponseEntity.class, response.getClass());
+
+        //verificando o tipo do body do ResponseEntity
+        Assertions.assertEquals(ToolDto.class, response.getBody().get(0).getClass());
     }
 
     @Test
