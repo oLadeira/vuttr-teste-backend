@@ -124,6 +124,19 @@ class ToolServiceImplTest {
         Mockito.verify(toolRepository, Mockito.times(1)).delete(Mockito.any());
     }
 
+    @Test
+    void deleteWithObjectNotFoundException() {
+
+        Mockito.when(toolRepository.findById(Mockito.anyLong())).thenThrow(new ObjectNotFoundException("Tool not found!"));
+
+        try {
+            toolService.deleteTool(ID);
+        }catch (Exception ex){
+            Assertions.assertEquals(ex.getClass(), ObjectNotFoundException.class);
+            Assertions.assertEquals(ex.getMessage(), "Tool not found!");
+        }
+    }
+
     private void startTool(){
         tool = new Tool(ID, TITLE, LINK, DESCRIPTION, TAGS);
         toolDto = new ToolDto(ID, TITLE, LINK, DESCRIPTION, TAGS);
