@@ -5,6 +5,7 @@ import br.com.lucasladeira.vuttrapi.dto.ToolDto;
 import br.com.lucasladeira.vuttrapi.entities.Tool;
 import br.com.lucasladeira.vuttrapi.repositories.ToolRepository;
 import br.com.lucasladeira.vuttrapi.services.exceptions.ObjectNotFoundException;
+import lombok.With;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,6 +33,7 @@ class ToolServiceImplTest {
     public static final String LINK = "9C04yJy9";
     public static final String DESCRIPTION = "E3ORC7ZNR0SCY0";
     public static final List<String> TAGS = Arrays.asList("3FHuBo293y", "MqkCyC2y1687");
+    public static final String TAG = "MqkCyC2y1687";
 
     @InjectMocks
     private ToolServiceImpl toolService;
@@ -79,17 +81,33 @@ class ToolServiceImplTest {
     }
 
     @Test
-    void getAllToolsByTag() {
+    void whenFindByTagThenReturnAnListOfToolsWithRespectiveTag() {
+
+        Mockito.when(toolRepository.findByTags(Mockito.anyString())).thenReturn(List.of(tool));
+
+        List<Tool> response = toolService.getAllToolsByTag(TAG);
+
+        //verificando se a resposta nao e nula
+        Assertions.assertNotNull(response);
+
+        //verificando se o tipo da resposta é Tool
+        Assertions.assertEquals(response.get(0).getClass(), Tool.class);
+
+        //verificando se dentro da lista de tags do response possui a TAG passada por parametro na chamada do service
+        Assertions.assertTrue(response.get(0).getTags().contains(TAG));
     }
 
     @Test
     void whenFindByTagThenReturnAnObjectNotFoundException(){
         //estou forçando o repository jogar uma excecao
-        Mockito.when(toolRepository.findByTags(Mockito.anyString())).thenThrow(new ObjectNotFoundException("Tag not found!"));
+        //Mockito.when(toolRepository.findByTags(Mockito.anyString())).thenThrow(new ObjectNotFoundException("Tag not found!"));
+
+        //forçando o repository a devolver uma lista vazia e jogar uma excecao
+        Mockito.when(toolRepository.findByTags(Mockito.anyString())).thenReturn(List.of()).thenThrow(new ObjectNotFoundException("Tag not found!"));
 
         try {
             //vai jogar uma excecao independente do parametro passado
-            toolService.getAllToolsByTag("api");
+            toolService.getAllToolsByTag(TAG);
         }catch (Exception ex){
             Assertions.assertEquals(ObjectNotFoundException.class, ex.getClass());
             Assertions.assertEquals("Tag not found!", ex.getMessage());
