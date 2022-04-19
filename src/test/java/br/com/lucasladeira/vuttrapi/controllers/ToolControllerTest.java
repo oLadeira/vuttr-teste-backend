@@ -12,16 +12,12 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class ToolControllerTest {
@@ -46,7 +42,6 @@ class ToolControllerTest {
     private Tool tool;
     private NewToolDto newToolDto;
     private ToolDto toolDto;
-    private Optional<Tool> optionalTool;
 
 
     @BeforeEach
@@ -110,7 +105,15 @@ class ToolControllerTest {
     }
 
     @Test
-    void deleteTool() {
+    void whenDeleteThenReturnSuccess() {
+
+        Mockito.doNothing().when(toolService).deleteTool(Mockito.anyLong());
+
+        ResponseEntity<Void> response = toolController.deleteTool(ID);
+
+        Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+        Assertions.assertEquals(ResponseEntity.class, response.getClass());
+        Mockito.verify(toolService, Mockito.times(1)).deleteTool(Mockito.anyLong());
     }
 
     private void startTool(){
