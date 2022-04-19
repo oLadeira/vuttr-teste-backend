@@ -56,7 +56,26 @@ class ToolServiceImplTest {
 
 
     @Test
-    void getAllTools() {
+    void whenFindAllThenReturnAnListOfTools() {
+        //quando chamar o metodo findAll do repository, retornar uma lista de um tool
+        Mockito.when(toolRepository.findAll()).thenReturn(List.of(tool));
+
+        List<Tool> response = toolService.getAllTools();
+
+        //verificando se a lista nao esta nula
+        Assertions.assertNotNull(response);
+
+        //verificando se a lista possui tamanho de 1
+        Assertions.assertEquals(1, response.size());
+
+        //verificando se o item de indice 0 da lista é uma classe Tool
+        Assertions.assertEquals(Tool.class, response.get(0).getClass());
+
+        Assertions.assertEquals(ID, response.get(0).getId());
+        Assertions.assertEquals(TITLE, response.get(0).getTitle());
+        Assertions.assertEquals(DESCRIPTION, response.get(0).getDescription());
+        Assertions.assertEquals(LINK, response.get(0).getLink());
+        Assertions.assertEquals(TAGS, response.get(0).getTags());
     }
 
     @Test
