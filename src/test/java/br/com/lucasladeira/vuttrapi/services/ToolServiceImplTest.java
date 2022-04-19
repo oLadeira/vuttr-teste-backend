@@ -114,7 +114,14 @@ class ToolServiceImplTest {
     }
 
     @Test
-    void deleteTool() {
+    void deleteWithSuccess() {
+
+        Mockito.when(toolRepository.findById(Mockito.anyLong())).thenReturn(optionalTool);
+        Mockito.doNothing().when(toolRepository).delete(Mockito.any());
+        toolService.deleteTool(ID);
+
+        //verificando quantas vezes o delete foi invocado no repository
+        Mockito.verify(toolRepository, Mockito.times(1)).delete(Mockito.any());
     }
 
     private void startTool(){
