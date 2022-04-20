@@ -25,6 +25,7 @@ mvn clean install
 * Lombok
 * Model Mapper
 * Validation
+* Testes Unitários com JUnit 5
 * Spring Fox Swagger
 
 Made with ♥ by Lucas Ladeira
