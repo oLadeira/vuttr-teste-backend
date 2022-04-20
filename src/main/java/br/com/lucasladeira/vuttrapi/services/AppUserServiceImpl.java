@@ -25,13 +25,12 @@ public class AppUserServiceImpl implements AppUserService{
     @Override
     public AppUser createUser(NewAppUserDto user) {
         user.setPassword(encoder.encode(user.getPassword()));
-        AppUser savedUser = appUserRepository.save(mapper.map(user, AppUser.class));
-        return savedUser;
+        return appUserRepository.save(mapper.map(user, AppUser.class));
     }
 
     @Override
     public List<AppUser> getAllUsers() {
-        return null;
+        return appUserRepository.findAll();
     }
 
 
