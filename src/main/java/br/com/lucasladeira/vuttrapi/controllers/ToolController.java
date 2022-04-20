@@ -2,8 +2,6 @@ package br.com.lucasladeira.vuttrapi.controllers;
 
 import br.com.lucasladeira.vuttrapi.dto.NewToolDto;
 import br.com.lucasladeira.vuttrapi.dto.ToolDto;
-import br.com.lucasladeira.vuttrapi.entities.Tool;
-import br.com.lucasladeira.vuttrapi.repositories.ToolRepository;
 import br.com.lucasladeira.vuttrapi.services.ToolServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.modelmapper.ModelMapper;
@@ -13,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/tools")
@@ -41,7 +38,7 @@ public class ToolController {
     public ResponseEntity<List<ToolDto>> getAllTools(){
         List<ToolDto> tools = toolService.getAllTools()
                 .stream().map(
-                        tool -> mapper.map(tool, ToolDto.class)).collect(Collectors.toList());
+                        tool -> mapper.map(tool, ToolDto.class)).toList();
 
         return ResponseEntity.status(HttpStatus.OK).body(tools);
     }
@@ -54,7 +51,7 @@ public class ToolController {
 
         List<ToolDto> tools = toolService.getAllToolsByTag(tag)
                 .stream().map(
-                        tool -> mapper.map(tool, ToolDto.class)).collect(Collectors.toList());
+                        tool -> mapper.map(tool, ToolDto.class)).toList();
 
         return ResponseEntity.status(HttpStatus.OK).body(tools);
     }
@@ -65,6 +62,6 @@ public class ToolController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTool(@PathVariable Long id){
         toolService.deleteTool(id);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
