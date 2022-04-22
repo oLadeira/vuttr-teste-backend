@@ -2,6 +2,7 @@ package br.com.lucasladeira.vuttrapi.services;
 
 import br.com.lucasladeira.vuttrapi.dto.NewAppUserDto;
 import br.com.lucasladeira.vuttrapi.entities.AppUser;
+import br.com.lucasladeira.vuttrapi.entities.enums.Profile;
 import br.com.lucasladeira.vuttrapi.repositories.AppUserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,12 @@ public class AppUserServiceImpl implements AppUserService{
 
     @Override
     public AppUser createUser(NewAppUserDto user) {
-        user.setPassword(encoder.encode(user.getPassword()));
-        return appUserRepository.save(mapper.map(user, AppUser.class));
+        AppUser saveUser = mapper.map(user, AppUser.class);
+        saveUser.setPassword(encoder.encode(saveUser.getPassword()));
+        saveUser.addProfile(Profile.USER);
+        //user.setPassword(encoder.encode(user.getPassword()));
+        //return appUserRepository.save(mapper.map(user, AppUser.class));
+        return appUserRepository.save(saveUser);
     }
 
     @Override
