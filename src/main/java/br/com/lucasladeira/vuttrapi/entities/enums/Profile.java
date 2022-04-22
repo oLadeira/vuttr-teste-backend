@@ -3,11 +3,12 @@ package br.com.lucasladeira.vuttrapi.entities.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public enum Profile {
+public enum Profile implements GrantedAuthority {
 
     ADMIN(1, "ROLE_ADMIN"),
     USER(2, "ROLE_USER");
@@ -32,4 +33,8 @@ public enum Profile {
     }
 
 
+    @Override
+    public String getAuthority() {
+        return description;
+    }
 }
