@@ -1,3 +1,7 @@
+api:
+  jwt:
+    secret: secret
+    expiration: 86400000
 spring:
   application:
     name: vuttr-api

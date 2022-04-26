@@ -5,7 +5,6 @@ import br.com.lucasladeira.vuttrapi.dto.ToolDto;
 import br.com.lucasladeira.vuttrapi.entities.Tool;
 import br.com.lucasladeira.vuttrapi.repositories.ToolRepository;
 import br.com.lucasladeira.vuttrapi.services.exceptions.ObjectNotFoundException;
-import lombok.With;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,15 +13,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class ToolServiceImplTest {
